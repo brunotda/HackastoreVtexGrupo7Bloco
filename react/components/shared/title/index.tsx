@@ -1,12 +1,16 @@
 import React from "react"
-import './title.styles.css'
+// import './title.styles.css'
+import * as Styled from './styles'
 
-interface TitlePros {
+interface TitleProps {
   children: string;
+  fontSize: number;
 }
 
-const Title = ({ children }: TitlePros) => {
-  return <h4 className='opinion__title'>{children}</h4>;
+const Title = ({ children, fontSize }: TitleProps) => {
+  return (
+  <Styled.Title fontSize={fontSize}>{children}</Styled.Title>
+  );
 };
 
 export default Title;

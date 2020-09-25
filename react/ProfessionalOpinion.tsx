@@ -1,11 +1,12 @@
 import React from "react";
-import Title from './shared/title'
+import Title from "./components/shared/title";
 
 interface ProfessionalOpinionProps {
   title: string;
   professional: string;
   opinion: string;
-  img: string
+  img: string;
+  fontSize: number;
 }
 
 const ProfessionalOpinion: StorefrontFunctionComponent<ProfessionalOpinionProps> = ({
@@ -13,11 +14,11 @@ const ProfessionalOpinion: StorefrontFunctionComponent<ProfessionalOpinionProps>
   professional,
   opinion,
   img,
+  fontSize,
 }: ProfessionalOpinionProps) => {
-
   return (
     <div>
-      <Title>{title}</Title>
+      <Title fontSize={fontSize}>{title}</Title>
       <div>
         <img src={img} />
         <h5>{professional}</h5>
@@ -60,7 +61,13 @@ ProfessionalOpinion.schema = {
       type: "string",
       default: null,
     },
-  },
+
+    fontSize: {
+      title: "Tamanho da fonte",
+      type: "number",
+      default: 20,
+    }
+  }
 };
 
 export default ProfessionalOpinion;
