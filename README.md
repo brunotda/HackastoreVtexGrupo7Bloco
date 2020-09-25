@@ -6,6 +6,8 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
+Demo Product: https://grupo7--beautytheme.myvtex.com/q-cosmetics-shampoo-dark-hair/p
+
 ## Configuration
 
 1. Add the `sandbox` app to your theme's dependencies in the `manifest.json`, for example:
