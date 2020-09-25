@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
+import Image from "./components/shared/image";
 import Title from "./components/shared/title";
+import './style.global.css'
 
 interface ProfessionalOpinionProps {
   title: string;
@@ -7,6 +9,10 @@ interface ProfessionalOpinionProps {
   opinion: string;
   img: string;
   fontSize: number;
+  imageSize: number;
+  titleColor: string;
+  textDistance: number;
+  characterLimit: number;
 }
 
 const ProfessionalOpinion: StorefrontFunctionComponent<ProfessionalOpinionProps> = ({
@@ -15,15 +21,30 @@ const ProfessionalOpinion: StorefrontFunctionComponent<ProfessionalOpinionProps>
   opinion,
   img,
   fontSize,
+  imageSize,
+  textDistance,
+  characterLimit
 }: ProfessionalOpinionProps) => {
+  const [ showFullOpinion, setShowFullOpinion ] = useState(false);
+  const formatedOpinionText = opinion ? [...opinion].reduce((acc, letter, index) => {
+    if (index === characterLimit) return acc += '...';
+    if (index > characterLimit) return acc;
+
+    return acc += letter;
+  }, '') : '';
+
+  const handleClickOpinion = () => {
+    setShowFullOpinion(!showFullOpinion);
+  }
+
   return (
-    <div>
-      <Title fontSize={fontSize}>{title}</Title>
-      <div>
-        <img src={img} />
-        <h5>{professional}</h5>
-        <p>{opinion}</p>
+    <div className='opition__container'>
+      <Title fontSize={fontSize ?? 20} margin={0}>{title}</Title>
+      <div className='opinion__name-wrapper'>
+        <Image src={img} size={imageSize ?? 20} />
+        <Title fontSize={15} margin={textDistance}>{professional}</Title>
       </div>
+        <p onClick={handleClickOpinion}>{showFullOpinion ? opinion : formatedOpinionText}</p>
     </div>
   );
 };
@@ -66,7 +87,26 @@ ProfessionalOpinion.schema = {
       title: "Tamanho da fonte",
       type: "number",
       default: 20,
-    }
+    },
+
+    imageSize: {
+      title: "Tamanho da imagem",
+      type: "number",
+      default: 20,
+    },
+
+    textDistance: {
+      title: "Espaçamento nome profissional",
+      type: "number",
+      default: 20,
+    },
+
+    characterLimit: {
+      title: "Limite de caracteres da opinião",
+      type: "number",
+      default: 9999,
+    },
+
   }
 };
 
